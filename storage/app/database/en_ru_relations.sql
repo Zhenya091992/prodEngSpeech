@@ -1,4 +1,4 @@
-insert into zhenya091992.en-ru_relations (en_word_id, ru_word_id)
+insert into `zhenya091992`.`en-ru_relations` (en_word_id, ru_word_id)
 values  (1, 1),
         (1, 2),
         (2, 3),
