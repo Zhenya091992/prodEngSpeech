@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        (new StatusSeeder())->run();
-        (new EnWordsSeeder())->run();
-        (new RuWordsSeeder())->run();
-        (new EnRURelationsSeeder())->run();
+        //(new StatusSeeder())->run();
+        //(new EnWordsSeeder())->run();
+        //(new RuWordsSeeder())->run();
+        (new EnRuRelationsSeeder())->run();
         (new EnAudioSeeder())->run();
         (new RuAudioSeeder())->run();
     }
