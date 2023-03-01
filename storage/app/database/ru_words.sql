@@ -1,4 +1,4 @@
-insert into app.ru_words (id, word, count_repeated, id_status, id_audio, created_at, updated_at)
+insert into zhenya091992.ru_words (id, word, count_repeated, id_status, id_audio, created_at, updated_at)
 values  (1, 'способность', 0, 1, 1, '2023-02-13 19:51:12', '2023-02-16 11:56:49'),
         (2, 'возможность', 0, 1, 2, '2023-02-13 19:51:12', '2023-02-16 11:56:49'),
         (3, 'способный', 0, 1, 3, '2023-02-13 19:51:12', '2023-02-16 11:56:49'),

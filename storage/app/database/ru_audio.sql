@@ -1,4 +1,4 @@
-insert into app.ru_audio (id, word, path)
+insert into zhenya091992.ru_audio (id, word, path)
 values  (1, 'способность', 'public/audio/ru/ogg/с/способность.ogg'),
         (2, 'возможность', 'public/audio/ru/ogg/в/возможность.ogg'),
         (3, 'способный', 'public/audio/ru/ogg/с/способный.ogg'),

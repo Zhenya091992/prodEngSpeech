@@ -1,4 +1,4 @@
-insert into app.en_audio (id, word, path)
+insert into zhenya091992.en_audio (id, word, path)
 values  (1, 'AIDS', 'public/audio/en/mp3/A/AIDS.mp3'),
         (2, 'April', 'public/audio/en/mp3/A/April.mp3'),
         (3, 'August', 'public/audio/en/mp3/A/August.mp3'),

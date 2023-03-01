@@ -1,4 +1,4 @@
-insert into app.en_words (id, word, transcription, count_repeated, id_status, id_audio, created_at, updated_at)
+insert into zhenya091992.en_words (id, word, transcription, count_repeated, id_status, id_audio, created_at, updated_at)
 values  (1, 'ability', '[əˈbɪlɪtɪ]', 0, 1, 31, '2023-02-13 18:39:55', '2023-02-13 18:39:55'),
         (2, 'able', '[eɪbl]', 0, 1, 32, '2023-02-13 18:39:55', '2023-02-13 18:39:55'),
         (3, 'abortion', '[əˈbɔːʃn]', 0, 1, 34, '2023-02-13 18:39:55', '2023-02-13 18:39:55'),

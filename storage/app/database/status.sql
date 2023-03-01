@@ -1,4 +1,4 @@
-insert into app.status (id, name)
+insert into zhenya091992.status (id, name)
 values  (1, 'new'),
         (2, 'unknown'),
         (3, 'known'),
