@@ -7,7 +7,6 @@ use App\Models\EnWord;
 use App\Models\OxfordWord;
 use App\Models\Status;
 use App\Models\Word;
-use Database\Seeders\AllEnglishWords;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -21,10 +20,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //(new StatusSeeder())->run();
-        //(new EnAudioSeeder())->run();
-        //(new EnWords())->run();
-        //(new RuWordSeeder())->run();
-
+        (new StatusSeeder())->run();
+        (new EnWordsSeeder())->run();
+        (new RuWordsSeeder())->run();
+        (new EnRURelationsSeeder())->run();
+        (new EnAudioSeeder())->run();
+        (new RuAudioSeeder())->run();
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Status;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StatusSeeder extends Seeder
 {
@@ -15,16 +16,6 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = [
-            'new',
-            'unknown',
-            'known',
-            'learn',
-            'learned',
-        ];
-
-        foreach ($statuses as $status) {
-            (new Status(['name' => $status]))->save();
-        }
+        DB::unprepared(Storage::get('database/status.sql'));
     }
 }

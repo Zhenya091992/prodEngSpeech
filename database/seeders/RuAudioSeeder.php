@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class EnAudioSeeder extends Seeder
+class RuAudioSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +16,6 @@ class EnAudioSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared(Storage::get('database/en_audio.sql'));
+        DB::unprepared(Storage::get('database/ru_audio.sql'));
     }
 }

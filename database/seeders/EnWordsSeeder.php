@@ -5,10 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
-class OxfordWordsSeeder extends Seeder
+class EnWordsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +16,6 @@ class OxfordWordsSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared(Storage::get('database/oxford_words.sql'));
+        DB::unprepared(Storage::get('database/en_words.sql'));
     }
 }
