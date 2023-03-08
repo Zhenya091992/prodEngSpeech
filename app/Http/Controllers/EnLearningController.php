@@ -19,9 +19,12 @@ class EnLearningController extends Controller
      */
     public function index()
     {
-        $enWord = Auth::user()->enWords->random();
-        //dd((new EnWordsResource($enWord))->toJson(256));
-        return (new EnWordsResource($enWord))->toJson(256);
+        $word = EnWord::join('user-en_word_relations', 'en_words.id', '=', 'user-en_word_relations.en_word_id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->inRandomOrder()
+            ->first();
+
+        return (new EnWordsResource($word))->toJson(256);
     }
 
 
