@@ -12,7 +12,6 @@
             <th scope="col">word</th>
             <th scope="col">transcription</th>
             <th scope="col">translation</th>
-            <th scope="col">status</th>
             <th scope="col">action</th>
         </tr>
         </thead>
@@ -29,7 +28,7 @@
                 </td>
                 <td class="status">{{ $word->status->name }}</td>
                 <td>
-                    <button type="button" class="btn btn-success toLearn">learn</button>
+                    <button type="button" class="btn btn-success learn">learn</button>
                     <button type="button" class="btn btn-secondary known">known</button>
                 </td>
             </tr>

@@ -1,9 +1,12 @@
 let paginateCount = 0;
 
-document.getElementById("delayRange").addEventListener("change", async function() {
-    document.getElementById('delay').textContent = this.value;
-});
+
 $(document).ready(async function() {
+    document.getElementById("delayRange").addEventListener("change", async function() {
+        document.getElementById('delay').textContent = this.value;
+        let delay = document.getElementById('delay').textContent
+    });
+
     let audio = document.getElementById("player");
     let word = document.getElementById("word");
     let translate = document.getElementById("translate");
@@ -15,7 +18,7 @@ $(document).ready(async function() {
 
     let timerId = setTimeout(function again() {
         generate();
-        timerId = setTimeout(again, 7 * 1000)
+        timerId = setTimeout(again, +delay.textContent * 1000)
     }, 2000)
 
 

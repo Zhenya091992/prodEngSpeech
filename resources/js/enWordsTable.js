@@ -1,7 +1,9 @@
 $(document).on("click", ".btn", async function (e) {
     let request = {"status": ""}
-    if (e.currentTarget.classList.contains("toLearn")) {
+    if (e.currentTarget.classList.contains("learn")) {
         request.status = "learn"
+    } else if (e.currentTarget.classList.contains("learned")) {
+        request.status = "learned"
     } else if (e.currentTarget.classList.contains("known")) {
         request.status = "known"
     } else {

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\EnWordsCollection;
 use App\Http\Resources\EnWordsResource;
 use App\Models\EnWord;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class EnLearningController extends Controller
 {
@@ -21,6 +18,7 @@ class EnLearningController extends Controller
     {
         $word = EnWord::join('user-en_word_relations', 'en_words.id', '=', 'user-en_word_relations.en_word_id')
             ->where('user_id', '=', Auth::user()->id)
+            ->where('status_id', '=', Status::LEARN)
             ->inRandomOrder()
             ->first();
 
