@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
-class EnWordsResource extends JsonResource
+class TableEnWordsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,8 @@ class EnWordsResource extends JsonResource
         return [
             'id' => $this->id,
             'word' => $this->word,
-            'translate' => new RuWordsCollection($this->ruWords),
+            'translate' => implode(' ,', array_column($this->ruWords()->get()->toArray(), 'word')),
             'transcription' => $this->transcription,
-            'audio' => Str::replace('public/', 'storage/', $this->audio->path),
         ];
     }
 }
