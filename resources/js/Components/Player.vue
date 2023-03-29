@@ -75,7 +75,7 @@ onMounted(async () => {
         }))
         const MyPlayer = new Player(audio.value, playList)
         MyPlayer.play()
-        audio.onended = function () {
+        audio.value.onended = function () {
             MyPlayer.next()
         }
 
