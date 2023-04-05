@@ -27,18 +27,17 @@ function changeApi(newApi) {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <PrimaryButton @click="changeApi('all')">
+                    <div class="m-3 text-gray-900">
+                        <PrimaryButton class="m-2" @click="changeApi('all')">
                             All
                         </PrimaryButton>
-                        <PrimaryButton @click="changeApi('learn')">
+                        <PrimaryButton class="m-2" @click="changeApi('learn')">
                             Learn
                         </PrimaryButton>
-                        <PrimaryButton @click="changeApi('learned')">
+                        <PrimaryButton class="m-2" @click="changeApi('learned')">
                             Learned
                         </PrimaryButton>
                         <TableWords :api="api">
-
                         </TableWords>
                     </div>
                 </div>

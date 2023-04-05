@@ -88,39 +88,32 @@ doSearch(0, 10, 'word', 'asc', 1);
 </script>
 
 <template>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <table-lite
-                        :is-loading="table.isLoading"
-                        :is-slot-mode="true"
-                        :columns="table.columns"
-                        :rows="table.rows"
-                        :pageSize="10"
-                        :total="table.totalRecordCount"
-                        :sortable="table.sortable"
-                        :messages="table.messages"
-                        @do-search="doSearch"
-                        @is-finished="table.isLoading = false"
-                    >
-                        <template v-slot:quick="data">
-                            <PrimaryButton
-                                v-show="api === 'all' || api === 'learned'"
-                                @click="actionWithWord(data.value.id, 'learn')"
-                            >Learn</PrimaryButton>
-                            <PrimaryButton
-                                v-show="api === 'all'"
-                                @click="actionWithWord(data.value.id, 'known')"
-                            >Known</PrimaryButton>
-                            <PrimaryButton
-                                v-show="api === 'learn'"
-                                @click="actionWithWord(data.value.id, 'learned')"
-                            >Learned</PrimaryButton>
-                        </template>
-                    </table-lite>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table-lite
+        :is-loading="table.isLoading"
+        :is-slot-mode="true"
+        :columns="table.columns"
+        :rows="table.rows"
+        :pageSize="10"
+        :total="table.totalRecordCount"
+        :sortable="table.sortable"
+        :messages="table.messages"
+        @do-search="doSearch"
+        @is-finished="table.isLoading = false"
+    >
+        <template v-slot:quick="data">
+            <PrimaryButton
+                class="m-2"
+                v-show="api === 'all' || api === 'learned'"
+                @click="actionWithWord(data.value.id, 'learn')"
+            >Learn</PrimaryButton>
+            <PrimaryButton
+                v-show="api === 'all'"
+                @click="actionWithWord(data.value.id, 'known')"
+            >Known</PrimaryButton>
+            <PrimaryButton
+                v-show="api === 'learn'"
+                @click="actionWithWord(data.value.id, 'learned')"
+            >Learned</PrimaryButton>
+        </template>
+    </table-lite>
 </template>
