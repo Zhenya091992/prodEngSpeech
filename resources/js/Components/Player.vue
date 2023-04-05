@@ -86,26 +86,29 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div id="listening">
-        <div id="word-div">
-        <h3 id="word">{{ instance.word.word }}</h3>
-        </div>
-        <div id="transcr-div">
+    <div class="container max-w-lg my-8 mx-auto columns-3">
+        <div class="box-content font-semibold">
+            <h2 id="word">{{ instance.word.word }}</h2>
             <h3 id="transcription">{{ instance.word.transcription }}</h3>
         </div>
-        <div id="translate">
+        <div class="box-border text-gray-600">
             <h3 v-for="ruWord in instance.word.translate">{{ ruWord.word }}</h3>
         </div>
-        <div id="cycle-div">
+    </div>
+    <div class="container max-w-lg my-4 mx-auto">
+        <div class="flex">
+            <audio ref="audio" id="player" preload="metadata" controls>
+            </audio>
             Playing cycle
             <input type="range" class="form-range" v-model="value" min="5" max="20" step="0.5" id="delayRange">
             <label for="delayRange" class="form-label" id="delay">{{ value }}</label>
             sec
         </div>
-        <audio ref="audio" id="player" preload="metadata" controls>
-        </audio>
-        <PrimaryButton @click="actionWithWord(instance.word.id, 'learned')">
+        <PrimaryButton class="my-4" @click="actionWithWord(instance.word.id, 'learned')">
             Learned
         </PrimaryButton>
     </div>
+
+
+
 </template>
