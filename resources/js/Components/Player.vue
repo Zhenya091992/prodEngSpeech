@@ -25,16 +25,13 @@ function Player(audioElem, playlist) {
     }
 }
 
-function getWord (data) {
-    return data[Math.floor(Math.random() * data.length)] //rand object
-}
-
 defineComponent(PrimaryButton)
 
 let instance = reactive({word: {}})
 let value = 10
 let playList = []
 let data = []
+let keysData = []
 const audio = ref(null)
 
 async function getData() {
@@ -53,12 +50,25 @@ async function getData() {
         console.log(err);
     })
 }
+
+function getKeysData (data) {
+    keysData = Object.keys(data)
+}
+
+function getWord (data) {
+    return  data[keysData[ keysData.length * Math.random() << 0]]
+}
+
 const actionWithWord = (id, action) => {
     axios({
         method: "get",
         url: 'api/enWords/action/?idWord=' + id + '&action=' + action
     }).then((response) => {
-        //
+        let key = keysData.indexOf(String(id))
+        if (key !== -1) {
+            delete keysData[String(key)]
+            keysData = keysData.flat()
+        }
     }).catch((response) => {
         console.log(response)
     })
@@ -66,9 +76,9 @@ const actionWithWord = (id, action) => {
 
 onMounted(async () => {
     data = await getData()
-
+    getKeysData(data)
     let loop = async () => {
-        instance.word = await getWord(data.data)
+        instance.word = await getWord(data)
         playList = [instance.word.audio]
         playList.push(...instance.word.translate.map(function (item) {
             return item.audio
