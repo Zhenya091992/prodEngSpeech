@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class EnWordsResource extends JsonResource
 {
+    public $preserveKeys = true;
     /**
      * Transform the resource into an array.
      *
