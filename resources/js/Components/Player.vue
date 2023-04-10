@@ -32,6 +32,7 @@ let value = 10
 let playList = []
 let data = []
 let keysData = []
+let countWords =ref(0)
 const audio = ref(null)
 
 async function getData() {
@@ -68,6 +69,7 @@ const actionWithWord = (id, action) => {
         if (key !== -1) {
             delete keysData[String(key)]
             keysData = keysData.flat()
+            countWords = keysData.length
         }
     }).catch((response) => {
         console.log(response)
@@ -77,6 +79,7 @@ const actionWithWord = (id, action) => {
 onMounted(async () => {
     data = await getData()
     getKeysData(data)
+    countWords = keysData.length
     let loop = async () => {
         instance.word = await getWord(data)
         playList = [instance.word.audio]
@@ -106,17 +109,26 @@ onMounted(async () => {
         </div>
     </div>
     <div class="container max-w-lg my-4 mx-auto">
-        <div class="flex">
-            <audio ref="audio" id="player" preload="metadata" controls>
+        <div class="flex justify-between">
+            <primary-button @click="audio.play()">
+                Play
+            </primary-button>
+            <audio ref="audio" id="player" preload="metadata">
             </audio>
-            Playing cycle
-            <input type="range" class="form-range" v-model="value" min="5" max="20" step="0.5" id="delayRange">
-            <label for="delayRange" class="form-label" id="delay">{{ value }}</label>
-            sec
+            <div class="mx-2">
+                <p>Playing cycle {{ value }} sec</p>
+                <input type="range" class="form-range" v-model="value" min="5" max="20" step="0.5">
+            </div>
+
         </div>
-        <PrimaryButton class="my-4" @click="actionWithWord(instance.word.id, 'learned')">
-            Learned
-        </PrimaryButton>
+        <div class="flex justify-between">
+            <PrimaryButton class="my-4" @click="actionWithWord(instance.word.id, 'learned')">
+                Learned
+            </PrimaryButton>
+            <div class="py-4">
+                <p>words in learn {{ countWords}}</p>
+            </div>
+        </div>
     </div>
 
 
