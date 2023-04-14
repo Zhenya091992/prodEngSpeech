@@ -7,17 +7,16 @@ use App\Http\Requests\APIEnWordsRequest;
 use App\Http\Resources\TableEnWordsCollection;
 use App\Models\EnWord;
 use App\Models\Status;
-use App\Services\EnRuRelations;
+use App\Services\UserEnRelations;
+use App\Services\UserEnWordRelationsQuery;
 use Illuminate\Support\Facades\Auth;
 
 class APIEnWords extends Controller
 {
     public function all(APIEnWordsRequest $request)
     {
-        $words = EnWord::leftJoin('user-en_word_relations', function ($join) {
-            $join->on('en_words.id', '=', 'user-en_word_relations.en_word_id')
-                ->where('user_id', '=', Auth::user()->getAuthIdentifier());
-        })->where('user_id', '=', null)
+        $words = (new UserEnWordRelationsQuery(Auth::id()))
+            ->getAllUserWordsNoHaweStatus()
             ->orderBy($request->order, $request->sort)
             ->paginate($request->limit);
 
@@ -26,9 +25,8 @@ class APIEnWords extends Controller
 
     public function learn(APIEnWordsRequest $request)
     {
-        $words = EnWord::join('user-en_word_relations', 'en_words.id', '=', 'user-en_word_relations.en_word_id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('status_id', '=', Status::LEARN)
+        $words = (new UserEnWordRelationsQuery(Auth::id()))
+            ->getWordsWithStatus(Status::LEARN)
             ->orderBy($request->order, $request->sort)
             ->paginate($request->limit);
 
@@ -37,9 +35,8 @@ class APIEnWords extends Controller
 
     public function learned(APIEnWordsRequest $request)
     {
-        $words = EnWord::join('user-en_word_relations', 'en_words.id', '=', 'user-en_word_relations.en_word_id')
-            ->where('user_id', '=', Auth::user()->id)
-            ->where('status_id', '=', Status::LEARNED)
+        $words = (new UserEnWordRelationsQuery(Auth::id()))
+            ->getWordsWithStatus(Status::LEARNED)
             ->orderBy($request->order, $request->sort)
             ->paginate($request->limit);
 
@@ -53,7 +50,7 @@ class APIEnWords extends Controller
             return response()->json()->setStatusCode(400);
         }
 
-        $service = new EnRuRelations(
+        $service = new UserEnRelations(
             Auth::user(),
             EnWord::findOrFail($request->idWord),
             $status

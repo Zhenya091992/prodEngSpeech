@@ -7,7 +7,7 @@ use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class EnRuRelations
+class UserEnRelations
 {
     protected $db;
     protected $table = 'user-en_word_relations';

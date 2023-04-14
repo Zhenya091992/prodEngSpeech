@@ -21,7 +21,7 @@ class EnWordsResource extends JsonResource
             'word' => $this->word,
             'translate' => new RuWordsCollection($this->ruWords),
             'transcription' => $this->transcription,
-            'audio' => Str::replace('public/', 'storage/', $this->audio->path),
+            'audio' => $this->id_audio != 0 ? Str::replace('public/', 'storage/', $this->audio->path) : null,
         ];
     }
 }
