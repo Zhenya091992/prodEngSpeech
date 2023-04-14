@@ -26,13 +26,12 @@ function Player(audioElem, playlist) {
     }
 }
 
-defineComponent(PrimaryButton)
-
 let instance = reactive({word: {}})
 let value = 10
 let playList = []
 let data = []
 let keysData = []
+const play = ref(false)
 const countWords =ref(0)
 const audio = ref(null)
 
@@ -90,25 +89,32 @@ const addWordsForLearning = () => {
     })
 }
 
+let loop = async () => {
+    if (!play.value) {
+        return
+    }
+    instance.word = await getWord(data)
+    playList = [instance.word.audio]
+    playList.push(...instance.word.translate.map(function (item) {
+        return item.audio
+    }))
+
+    const MyPlayer = new Player(audio.value, playList)
+    MyPlayer.play()
+    audio.value.onended = function () {
+        MyPlayer.next()
+    }
+
+    setTimeout(loop, +value * 1000)
+}
+const clearTimeout = (id) => {
+    clearTimeout(id)
+}
+
 onMounted(async () => {
     data = await getData()
     keysData = Object.keys(data)
     countWords.value = keysData.length
-    let loop = async () => {
-        instance.word = await getWord(data)
-        playList = [instance.word.audio]
-        playList.push(...instance.word.translate.map(function (item) {
-            return item.audio
-        }))
-        const MyPlayer = new Player(audio.value, playList)
-        MyPlayer.play()
-        audio.value.onended = function () {
-            MyPlayer.next()
-        }
-
-        setTimeout(loop, +value * 1000)
-    }
-    loop()
 })
 </script>
 
@@ -124,16 +130,22 @@ onMounted(async () => {
     </div>
     <div class="container max-w-lg my-4 mx-auto">
         <div class="flex justify-between">
-            <primary-button @click="audio.play()">
-                Play
-            </primary-button>
+            <template v-if="!play">
+                <primary-button @click="play = true; loop(); audio.play()">
+                    Play
+                </primary-button>
+            </template>
+            <template v-else>
+                <primary-button @click="play = false">
+                    Stop
+                </primary-button>
+            </template>
             <audio ref="audio" id="player" preload="metadata">
             </audio>
-            <div class="mx-2">
+            <div>
                 <p>Playing cycle {{ value }} sec</p>
                 <input type="range" class="form-range" v-model="value" min="5" max="20" step="0.5">
             </div>
-
         </div>
         <div class="flex justify-between">
             <PrimaryButton class="my-4" @click="actionWithWord(instance.word.id, 'learned')">
@@ -147,7 +159,4 @@ onMounted(async () => {
             </SecondaryButton>
         </div>
     </div>
-
-
-
 </template>
