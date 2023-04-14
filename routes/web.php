@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\APIEnWords;
+use App\Http\Controllers\APIEnWordsAction;
 use App\Http\Controllers\APIListen;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -49,5 +50,6 @@ Route::get('api/enWords/all', [APIEnWords::class, 'all'])->middleware(['auth', '
 Route::get('api/enWords/learn', [APIEnWords::class, 'learn'])->middleware(['auth', 'verified']);
 Route::get('api/enWords/learned', [APIEnWords::class, 'learned'])->middleware(['auth', 'verified']);
 Route::get('api/enWords/action', [APIEnWords::class, 'action'])->middleware(['auth', 'verified']);
+Route::get('api/enWords/addToLearn', [APIEnWordsAction::class, 'addRandWords'])->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

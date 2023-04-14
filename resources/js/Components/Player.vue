@@ -1,6 +1,7 @@
 <script setup>
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {defineComponent, nextTick, onMounted, reactive, ref} from "vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 function Player(audioElem, playlist) {
     this.audioElem = audioElem
@@ -32,7 +33,7 @@ let value = 10
 let playList = []
 let data = []
 let keysData = []
-let countWords =ref(0)
+const countWords =ref(0)
 const audio = ref(null)
 
 async function getData() {
@@ -69,8 +70,21 @@ const actionWithWord = (id, action) => {
         if (key !== -1) {
             delete keysData[String(key)]
             keysData = keysData.flat()
-            countWords = keysData.length
+            countWords.value = keysData.length
         }
+    }).catch((response) => {
+        console.log(response)
+    })
+}
+
+const addWordsForLearning = () => {
+    axios({
+        method: "get",
+        url: 'api/enWords/addToLearn'
+    }).then((response) => {
+        data = Object.assign(response.data, data)
+        keysData = Object.keys(data)
+        countWords.value = keysData.length
     }).catch((response) => {
         console.log(response)
     })
@@ -78,8 +92,8 @@ const actionWithWord = (id, action) => {
 
 onMounted(async () => {
     data = await getData()
-    getKeysData(data)
-    countWords = keysData.length
+    keysData = Object.keys(data)
+    countWords.value = keysData.length
     let loop = async () => {
         instance.word = await getWord(data)
         playList = [instance.word.audio]
@@ -125,9 +139,12 @@ onMounted(async () => {
             <PrimaryButton class="my-4" @click="actionWithWord(instance.word.id, 'learned')">
                 Learned
             </PrimaryButton>
-            <div class="py-4">
-                <p>words in learn {{ countWords}}</p>
+            <div class="pt-5">
+                <p>words in learn {{ countWords }}</p>
             </div>
+            <SecondaryButton class="my-4" @click="addWordsForLearning">
+                Add 10 words
+            </SecondaryButton>
         </div>
     </div>
 
