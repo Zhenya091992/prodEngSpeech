@@ -35,25 +35,17 @@ const play = ref(false)
 const countWords =ref(0)
 const audio = ref(null)
 
-async function getData() {
-    return fetch(
-        "api/listen/allLearnedWords",
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            }
-        }
-    ).then(function (response) {
-        return response.json();
-    }
-    ).catch(function (err) {
-        console.log(err);
+const getData = () => {
+    axios({
+        method: "get",
+        url: 'api/listen/allLearnedWords'
+    }).then((response) => {
+        data = response.data
+        keysData = Object.keys(data)
+        countWords.value = keysData.length
+    }).catch((response) => {
+        console.log(response)
     })
-}
-
-function getKeysData (data) {
-    keysData = Object.keys(data)
 }
 
 function getWord (data) {
@@ -80,10 +72,10 @@ const addWordsForLearning = () => {
     axios({
         method: "get",
         url: 'api/enWords/addToLearn'
-    }).then((response) => {
-        data = Object.assign(response.data, data)
+    }).then((res) => {
+        data = Object.assign(Object.assign({}, res.data), data)
         keysData = Object.keys(data)
-        countWords.value = keysData.length
+        countWords.value = countWords.value + Object.keys(res.data).length
     }).catch((response) => {
         console.log(response)
     })
@@ -112,9 +104,7 @@ const clearTimeout = (id) => {
 }
 
 onMounted(async () => {
-    data = await getData()
-    keysData = Object.keys(data)
-    countWords.value = keysData.length
+    getData()
 })
 </script>
 
@@ -130,7 +120,7 @@ onMounted(async () => {
     </div>
     <div class="container max-w-lg my-4 mx-auto">
         <div class="flex justify-between">
-            <template v-if="!play">
+            <template v-if="!play && countWords">
                 <primary-button @click="play = true; loop(); audio.play()">
                     Play
                 </primary-button>
