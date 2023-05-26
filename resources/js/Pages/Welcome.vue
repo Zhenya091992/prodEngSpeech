@@ -104,7 +104,10 @@ defineProps({
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900">
+                        <p class="p-6 text-xl text-gray-700">
+                            Здесь вы сможете учить английские слова занимаясь чем угодно.
+                        </p>
+                        <div class="ps-16 pb-4 text-gray-900">
                             <p class="display-6">Зарегистрируйтесь, или войдите.</p>
                             <p class="display-6">Отметьте слова которые хотите запомнить.</p>
                             <p class="display-6">Слушайте когда вам это удобно.</p>

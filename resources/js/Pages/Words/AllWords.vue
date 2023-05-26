@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import TableWords from "@/Components/TableWords.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {all} from "axios";
 
 let api = ref('all')
@@ -15,16 +15,23 @@ let props = defineProps({
     }
 })
 
+let winHeight = ref({height: window.innerHeight})
+
 function changeApi(newApi) {
     api.value = newApi
 }
+onMounted(() => {
+    window.addEventListener('resize', () => {
+        winHeight.value.height = window.innerHeight
+    })
+})
 </script>
 
 <template>
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <div class="py-12">
+        <div class="lg:py-12 sm:py-3">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="m-3 text-gray-900">
@@ -37,7 +44,7 @@ function changeApi(newApi) {
                         <PrimaryButton class="m-2" @click="changeApi('learned')">
                             Learned
                         </PrimaryButton>
-                        <TableWords :api="api">
+                        <TableWords :api="api" :max-height="winHeight.height - 320">
                         </TableWords>
                     </div>
                 </div>

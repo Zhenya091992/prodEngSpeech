@@ -150,6 +150,16 @@ const showingNavigationDropdown = ref(false);
             <main>
                 <slot />
             </main>
+
+            <footer class="absolute inset-x-0 bottom-0">
+                <div class="bg-white border-b border-gray-100">
+                    <div class="max-w-7xl h-8 mx-auto px-4 py-2 sm:px-6 lg:px-8">
+                        <a href="mailto:rybachenka.yauheni@gmail.com">
+                            <p class="text-blue-900">connection with the creator</p>
+                        </a>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </template>
